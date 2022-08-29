@@ -1,0 +1,17 @@
+.planetBlock {
+  display: flex;
+  margin: 20px 10px;
+  align-items: center;
+  .planetTitle {
+    background-color: rgb(165, 165, 165);
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    padding: 25px 0;
+  }
+
+  .moonsClickedCounter {
+    color: rgb(190, 124, 2);
+    margin-left: 5px;
+  }
+}

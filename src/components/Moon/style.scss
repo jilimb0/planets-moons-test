@@ -1,0 +1,15 @@
+.moonBlock {
+  width: 70px;
+  height: 70px;
+  background-color: rgb(71, 1, 71);
+  color: white;
+  font-size: 13px;
+  margin-left: 15px;
+  padding: 25px 0;
+  list-style: none;
+  text-align: center;
+  cursor: pointer;
+  &.clicked {
+    background-color: rgb(218, 142, 0);
+  }
+}
