@@ -1,46 +1,52 @@
 import "./App.scss"
 import { planets } from "./data/planets"
 import Planet from "./components/Planet"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
-function App() {
-  const [planetsArr] = useState(planets)
+export default function App() {
   const [moonsCount, setMoonsCount] = useState([])
 
   function changeMoonsCount(id) {
-    const length =
-      planetsArr[id].moons.length > 0 ? planetsArr[id].moons.length : ""
-    planetsArr[id]?.moons
+    const length = planets[id].moons.length > 0 ? planets[id].moons.length : ""
+
+    planets[id]?.moons
       ? setMoonsCount({ ...moonsCount, [id + 1]: length })
       : setMoonsCount({ ...moonsCount, [id + 1]: "" })
   }
 
-  function changeSmth(el, status) {
-    const clickedPlanetId = el.planetId - 1
-    const focusedPlanet = planetsArr[clickedPlanetId]
+  function workWithElements(el, status) {
+    const clickedPlanetId = el.planetId - 1,
+      focusedPlanet = planets[clickedPlanetId]
 
-    if (status === "add") {
-      focusedPlanet.moons
-        ? focusedPlanet.moons.push(el)
-        : (focusedPlanet.moons = [el])
+    switch (status) {
+      case "add":
+        focusedPlanet.moons
+          ? focusedPlanet.moons.push(el)
+          : (focusedPlanet.moons = [el])
 
-      changeMoonsCount(clickedPlanetId)
-    } else if (status === "delete") {
-      const elIndex = focusedPlanet.moons.indexOf(el)
-      focusedPlanet.moons.splice(elIndex, 1)
+        changeMoonsCount(clickedPlanetId)
+        break
 
-      changeMoonsCount(clickedPlanetId)
+      case "delete":
+        const elIndex = focusedPlanet.moons.indexOf(el)
+        focusedPlanet.moons.splice(elIndex, 1)
+
+        changeMoonsCount(clickedPlanetId)
+        break
+
+      default:
+        break
     }
   }
 
   return (
     <main className="mainBlock">
-      {planetsArr.map(({ id, title }) => {
+      {planets.map(({ id, title }) => {
         return (
           <Planet
             id={id}
             title={title}
-            changeFunc={changeSmth}
+            changeFunc={workWithElements}
             key={id}
             moonsCount={moonsCount}
           />
@@ -49,5 +55,3 @@ function App() {
     </main>
   )
 }
-
-export default App
