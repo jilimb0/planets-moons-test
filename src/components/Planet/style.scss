@@ -2,16 +2,27 @@
   display: flex;
   margin: 20px 10px;
   align-items: center;
+  position: relative;
+  margin-left: 40px;
+  margin-bottom: 50px;
   .planetTitle {
     background-color: rgb(165, 165, 165);
-    width: 80px;
-    height: 80px;
-    text-align: center;
-    padding: 25px 0;
+    min-width: 100px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
   }
 
   .moonsClickedCounter {
     color: rgb(190, 124, 2);
     margin-left: 5px;
+  }
+
+  .absolute-cycles {
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid #ca8d1a;
   }
 }
