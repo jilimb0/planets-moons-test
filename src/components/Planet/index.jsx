@@ -1,26 +1,53 @@
 import "./style.scss"
-import { moons } from "../../data/moons"
 import Moon from "../Moon"
+import { useState } from "react"
 
-export default function Planet({ id, title, changeFunc, moonsCount }) {
+const findSize = (i) => i * 15 + 100,
+  findMargin = (i) => i * 5
+
+export default function Planet({ id, title, moons }) {
+  const [checkedMoons, handleCheck] = useState([])
+
+  const handleClick = (id) => {
+    if (!checkedMoons.includes(id)) {
+      handleCheck([...checkedMoons, id])
+    } else {
+      const filtredMoons = checkedMoons.filter((moonId) => moonId !== id)
+      handleCheck(filtredMoons)
+    }
+  }
+
   return (
     <section className="planetBlock">
-      <p className="planetTitle">
+      <p
+        className="planetTitle"
+        style={{
+          marginRight: findMargin(checkedMoons.length + 1),
+        }}
+      >
+        {checkedMoons.map((moonId, i) => (
+          <div
+            style={{ width: findSize(i + 1), height: findSize(i + 1) }}
+            className="absolute-cycles"
+            key={moonId}
+          />
+        ))}
+
         {title}
-        <span className="moonsClickedCounter">{moonsCount[id]}</span>
+        <span className="moonsClickedCounter">
+          {checkedMoons ? checkedMoons.length : ""}
+        </span>
       </p>
 
-      {moons.map(({ id: moonId, planetId, title }) => {
+      {moons.map(({ id, title }) => {
         return (
-          id === planetId && (
-            <Moon
-              id={moonId}
-              planetId={planetId}
-              title={title}
-              changeFunc={changeFunc}
-              key={moonId}
-            />
-          )
+          <Moon
+            id={id}
+            title={title}
+            key={id}
+            handleClick={handleClick}
+            checked={checkedMoons.includes(id)}
+          />
         )
       })}
     </section>
